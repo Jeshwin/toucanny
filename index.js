@@ -1,4 +1,4 @@
-// const serverless = require("serverless-http")
+const serverless = require("serverless-http")
 const express = require("express")
 const path = require("path")
 
@@ -31,15 +31,18 @@ app.get("/avatar", (req, res) => {
 
     // Generate an avatar using the function from avatar.js
     const avatarData = generateAvatar(userid)
+    console.log(avatarData)
 
     // Set the content type to image/jpeg
-    res.contentType("image/png")
+    res.type("image/png")
 
     // Send the generated avatar as binary data
     res.send(avatarData)
 })
 
-// module.exports.handler = serverless(app)
-app.listen(3030, () => {
-    console.log("listening on port 3030")
+// app.listen(3030, () => {
+//     console.log("listening on port 3030")
+// })
+module.exports.handler = serverless(app, {
+    binary: ["image/*"],
 })

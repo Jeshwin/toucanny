@@ -207,13 +207,12 @@ const hexString = (s) => {
 }
 
 const generateUsername = (userId) => {
-    var numWords = 0
     const randomString = hexString(userId)
+    const rng = seedrandom(randomString)
 
-    // Function to pick a random word from an array using the hash of the userId as a seed
+    // Function to pick a random word from an array
     const getRandomWord = (array) => {
-        const randomIndex = randomString.charCodeAt(numWords) % array.length
-        numWords += 1
+        const randomIndex = getRandomInt(0, 64, rng)
         return array[randomIndex]
     }
 
