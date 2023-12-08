@@ -91,7 +91,7 @@ The output is an image with the specified width and height, or 420x420 px by def
 
 ## 🚀 Deployment <a name = "deployment"></a>
 
-Toucanny is deployed using [Serverless](https://www.serverless.com/) on [AWS](https://aws.amazon.com/) and is publicly available [here](https://w4lnqfdtdj.execute-api.us-east-1.amazonaws.com/dev)!
+Toucanny is deployed using [Serverless](https://www.serverless.com/) on [AWS](https://aws.amazon.com/) and is publicly available [here](https://api.toucanny.net)!
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
