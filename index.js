@@ -28,9 +28,10 @@ app.get("/avatar", (req, res) => {
     if (!userid) {
         return res.status(400).send("Error: userid parameter is missing.")
     }
+    const width = Number(req.query.w || 420)
 
     // Generate an avatar using the function from avatar.js
-    const avatarData = generateAvatar(userid)
+    const avatarData = generateAvatar(userid, width)
     console.log(avatarData)
 
     // Set the content type to image/jpeg
@@ -40,9 +41,9 @@ app.get("/avatar", (req, res) => {
     res.send(avatarData)
 })
 
-// app.listen(3030, () => {
-//     console.log("listening on port 3030")
-// })
-module.exports.handler = serverless(app, {
-    binary: ["image/*"],
+app.listen(3030, () => {
+    console.log("listening on port 3030")
 })
+// module.exports.handler = serverless(app, {
+//     binary: ["image/*"],
+// })

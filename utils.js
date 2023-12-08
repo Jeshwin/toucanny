@@ -308,13 +308,13 @@ function interpolateColors(color1, color2, factor) {
 }
 
 // Function to generate a random toucan avatar based on the userId
-const generateAvatar = (userId) => {
+const generateAvatar = (userId, width) => {
     const randomString = hexString(userId)
     const rng = seedrandom(randomString)
 
     // Canvas dimensions
-    const canvasSize = 256
-    const padding = 38
+    const canvasSize = width
+    const padding = Math.ceil(width * 0.177)
     const squareSize = (canvasSize - padding * 2) / 3
     const radius = squareSize
 
@@ -338,10 +338,10 @@ const generateAvatar = (userId) => {
     // Draw head as quarter circles
     context.beginPath()
     context.fillStyle = bodyColor
-    context.moveTo(centerX - squareSize / 2, centerY)
+    context.moveTo(centerX - squareSize / 2, centerY - squareSize / 2)
     context.arc(
         centerX - squareSize / 2,
-        centerY,
+        centerY - squareSize / 2,
         radius,
         Math.PI,
         Math.PI * 1.5,
@@ -351,10 +351,10 @@ const generateAvatar = (userId) => {
 
     context.beginPath()
     context.fillStyle = "#ffffff"
-    context.moveTo(centerX - squareSize / 2, centerY)
+    context.moveTo(centerX - squareSize / 2, centerY - squareSize / 2)
     context.arc(
         centerX - squareSize / 2,
-        centerY,
+        centerY - squareSize / 2,
         radius * 0.707,
         Math.PI,
         Math.PI * 1.5,
@@ -367,11 +367,11 @@ const generateAvatar = (userId) => {
     context.fillStyle = "#000000"
     context.moveTo(
         centerX - squareSize / 2 - radius * 0.3,
-        centerY - radius * 0.3
+        centerY - squareSize / 2 - radius * 0.3
     )
     context.arc(
         centerX - squareSize / 2 - radius * 0.3,
-        centerY - radius * 0.3,
+        centerY - squareSize / 2 - radius * 0.3,
         radius * 0.125,
         0,
         Math.PI * 2.0,
@@ -382,17 +382,17 @@ const generateAvatar = (userId) => {
     // Draw colored beak
     for (let i = 0; i < 4; i++) {
         const x = centerX - squareSize / 2 + i * (squareSize / 4)
-        const y = centerY - squareSize
+        const y = centerY - squareSize / 2 - squareSize
         context.fillStyle = colors[i]
         context.fillRect(x, y, squareSize / 4, squareSize)
     }
 
     context.beginPath()
     context.fillStyle = colors[4]
-    context.moveTo(centerX + squareSize / 2, centerY)
+    context.moveTo(centerX + squareSize / 2, centerY - squareSize / 2)
     context.arc(
         centerX + squareSize / 2,
-        centerY,
+        centerY - squareSize / 2,
         radius,
         Math.PI * 1.5,
         Math.PI * 2.0,
@@ -403,10 +403,10 @@ const generateAvatar = (userId) => {
     // Draw body as quarter circles
     context.beginPath()
     context.fillStyle = bodyColor
-    context.moveTo(centerX - squareSize / 2, centerY)
+    context.moveTo(centerX - squareSize / 2, centerY - squareSize / 2)
     context.arc(
         centerX - squareSize / 2,
-        centerY,
+        centerY - squareSize / 2,
         radius,
         Math.PI * 0.5,
         Math.PI * 1.0,
@@ -416,10 +416,10 @@ const generateAvatar = (userId) => {
 
     context.beginPath()
     context.fillStyle = innerBodyColor
-    context.moveTo(centerX - squareSize / 2, centerY)
+    context.moveTo(centerX - squareSize / 2, centerY - squareSize / 2)
     context.arc(
         centerX - squareSize / 2,
-        centerY,
+        centerY - squareSize / 2,
         radius * 0.707,
         Math.PI * 0.5,
         Math.PI * 1.0,
@@ -429,16 +429,32 @@ const generateAvatar = (userId) => {
 
     context.beginPath()
     context.fillStyle = bodyColor
-    context.moveTo(centerX - squareSize / 2, centerY + squareSize)
+    context.moveTo(centerX - squareSize / 2, centerY + squareSize / 2)
     context.arc(
         centerX - squareSize / 2,
-        centerY + squareSize,
+        centerY + squareSize / 2,
         radius,
         Math.PI * 1.5,
         Math.PI * 2.0,
         false
     )
     context.fill()
+
+    // Draw tail as triangle
+    context.beginPath()
+    context.moveTo(centerX + squareSize / 2, centerY + squareSize / 2)
+    context.lineTo(centerX + squareSize / 2, centerY + (squareSize * 3) / 2)
+    context.lineTo(centerX - squareSize / 2, centerY + (squareSize * 3) / 2)
+    context.fillStyle = bodyColor // Set the color of the triangle
+    context.fill()
+
+    // Draw branch as line
+    context.beginPath()
+    context.moveTo(0, centerY + squareSize / 2 + squareSize / 8)
+    context.lineTo(canvasSize, centerY + squareSize / 2 + squareSize / 8)
+    context.strokeStyle = generateColor(rng)
+    context.lineWidth = squareSize / 4
+    context.stroke()
 
     // Save the canvas as a PNG file
     return canvas.toBuffer("image/png")
