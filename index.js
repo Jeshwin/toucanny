@@ -6,6 +6,9 @@ const app = express()
 
 const { generateUsername, generateAvatar } = require("./utils")
 
+// Serve static files from the 'public' directory
+app.use(express.static("public"))
+
 // Define the home route
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "index.html"))

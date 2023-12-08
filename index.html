@@ -4,11 +4,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Default Generator</title>
+    <title>Toucanny</title>
 </head>
 
 <body>
-    <h1>Bye Bye!</h1>
+    <p align="center">
+        <img width="768px" height="256px" src="/Toucanny Collage.png" alt="Project logo">
+    </p>
+
+    <h1 align="center">Toucanny</h1>
+
+    <div align="center">
+        <a href=""><img src="https://img.shields.io/badge/status-active-success.svg" alt="Status"></a>
+        <a href="https://github.com/Jeshwin/toucanny"><img
+                src="https://img.shields.io/github/commit-activity/t/Jeshwin/toucanny" alt="GitHub commit activity"></a>
+        <a href="https://github.com/Jeshwin/toucanny/stargazers"><img
+                src="https://img.shields.io/github/stars/Jeshwin/toucanny" alt="GitHub Repo stars"></a>
+        <a href="https://github.com/Jeshwin/toucanny/issues"><img
+                src="https://img.shields.io/github/issues/Jeshwin/toucanny" alt="GitHub issues"></a>
+        <a href="/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
+    </div>
+
+    <hr>
+
+    <p align="center">
+        Toucanny is a default username and avatar generation service
+        <br>
+    </p>
+
+    <h2>📝 Table of Contents</h2>
+
+    <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#getting_started">Getting Started</a></li>
+        <li><a href="#installing">Installing</a></li>
+        <li><a href="#usage">Usage</a></li>
+        <li><a href="#deployment">Deployment</a></li>
+        <li><a href="#built_using">Built Using</a></li>
+        <li><a href="#references">References</a></li>
+    </ul>
+
+    <h2>🧐 About <a name="about"></a></h2>
+
+    <p>While working on another one of my personal projects, <a href="https://www.codenest.space">CodeNest</a>, I wanted
+        a custom solution for generating a default username and avatar when a user signs up. Currently, we are using <a
+            href="https://auth0.com">Auth0</a> to handle user login and signup, and they already create a default avatar
+        using <a href="https://gravatar.com">Gravatar</a>, but I found it to be too boring, just the user's initials and
+        a background color 😴. So, I decided to make my own version, and add a username generator on top.</p>
+
+    <p>My objective for this project was to create a username and avatar generator that</p>
+
+    <ol>
+        <li>Generates a unique username and avatar for each new user (no duplicates)</li>
+        <li>Creates a memorable and interesting output, not just random characters and a bland image</li>
+    </ol>
+
+    <h2>🏁 Getting Started <a name="getting_started"></a></h2>
+
+    <p>These instructions will get you a copy of the project up and running on your local machine for development and
+        testing purposes.</p>
+
+    <h3>Installing <a name="installing"></a></h3>
+
+    <p>Clone the repository</p>
+
+    <pre>
+    <code>git clone https://https://github.com/Jeshwin/toucanny.git</code>
+    </pre>
+
+    <p>Change to the <code>toucanny</code> directory</p>
+
+    <pre>
+    <code>cd toucanny</code>
+    </pre>
+
+    <p>Download the node dependencies</p>
+
+    <pre>
+    <code>npm install</code>
+    </pre>
+
+    <p>Run the development build</p>
+
+    <pre>
+    <code>npm run start</code>
+    </pre>
+
+    <p>The instance will be available on <code>localhost:3030</code></p>
+
+    <h2>📥 Usage <a name="usage"></a></h2>
+
+    <p>There are two main routes that the Toucanny API uses.</p>
+
+    <h3><code>/username?userid={userid}</code></h3>
+
+    <p>This route takes in a required query parameter <code>userid</code> that is used to seed a random number
+        generator. This way, every user gets a unique output, and it will always be the same output for the same user.
+        To make the username interesting, it is formatted as a random sentence with five words of the form
+        <code>adjective-noun-verb-adjective-noun</code>. Using a list of 64 adjectives, nouns, and verbs each, this
+        leads to more than 1 billion usernames!
+    </p>
+
+    <p>The output is a json object of the form <code>{ username : "adjective-noun-verb-adjective-noun" }</code>.</p>
+
+    <h3><code>/avatar?userid={userid}&amp;w={width}</code></h3>
+
+    <p>This route takes in a required query parameter <code>userid</code> that is used to seed a random number
+        generator. It also takes an optional query parameter <code>w</code> that is used to define the width and height
+        of the output image. The output image is a toucan made from 9 uniquely generated colors, 6 for the beak and 1
+        each for the body, background, and branch colors. This creates over $1 \times 10^{65}$ possible avatars! (It's
+        actually a bit less because the background color has fewer possibilities, but at this order of magnitude, it
+        doesn't really make a difference) Some example avatars generated using Toucanny are in the header image of this
+        README.</p>
+
+    <p>The output is an image with the specified width and height, or 420x420 px by default.</p>
+
+    <h2>🚀 Deployment <a name="deployment"></a></h2>
+
+    <p>Toucanny is deployed using <a href="https://www.serverless.com/">Serverless</a> on <a
+            href="https://aws.amazon.com/">AWS</a> and is publicly available <a
+            href="https://w4lnqfdtdj.execute-api.us-east-1.amazonaws.com/dev">here</a>!</p>
+
+    <h2>⛏️ Built Using <a name="built_using"></a></h2>
+
+    <ul>
+        <li><a href="https://expressjs.com/">Express.js</a> - Node.js API Framework</li>
+        <li><a href="https://www.npmjs.com/package/canvas">node-canvas</a> - Image Creation Library</li>
+        <li><a href="https://aws.amazon.com/">AWS</a> - Web Hosting</li>
+        <li><a href="https://www.serverless.com/">Serverless</a> - Serverless Deployment</li>
+    </ul>
+
+    <h2>📜 References <a name="references"></a></h2>
+
+    <ul>
+        <li><a href="https://dribbble.com/shots/3706929-Toucan">Toucan reference image</a></li>
+        <li>Inspired by <a href="https://www.peardeck.com/">Peardeck's</a> word-based code generator</li>
+    </ul>
 </body>
 
 </html>
