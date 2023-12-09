@@ -212,7 +212,7 @@ const generateUsername = (userId) => {
 
     // Function to pick a random word from an array
     const getRandomWord = (array) => {
-        const randomIndex = getRandomInt(0, 64, rng)
+        const randomIndex = getRandomInt(0, 63, rng)
         return array[randomIndex]
     }
 
