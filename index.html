@@ -5,11 +5,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toucanny</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            width: 67%;
+            min-width: 384px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #FFFFFF;
+            background-color: #0F172A;
+        }
+
+        .header-image {
+            width: 67%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #22C55E;
+        }
+
+        pre {
+            background-color: #1E293B;
+            border-radius: 8px;
+            overflow: auto;
+            padding: 16px;
+        }
+
+        a {
+            color: #0EA5E9;
+        }
+
+        a:visited {
+            color: #A855F7;
+        }
+    </style>
+    <style>
+        #demo {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background-color: #1e293b;
+        }
+
+        #api-input {
+            margin: 10px;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            background-color: #475569;
+            color: #ffffff;
+        }
+
+        #api-button {
+            padding: 8px;
+            border-radius: 8px;
+            background-color: #2ecc71;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #output-image {
+            border-radius: 10%;
+        }
+    </style>
 </head>
 
 <body>
     <p align="center">
-        <img width="768px" height="256px" src="/Toucanny Collage.png" alt="Project logo">
+        <img class="header-image" src="/Toucanny Collage.png" alt="Project logo">
     </p>
 
     <h1 align="center">Toucanny</h1>
@@ -70,25 +140,25 @@
 
     <pre>
     <code>git clone https://https://github.com/Jeshwin/toucanny.git</code>
-    </pre>
+</pre>
 
     <p>Change to the <code>toucanny</code> directory</p>
 
     <pre>
     <code>cd toucanny</code>
-    </pre>
+</pre>
 
     <p>Download the node dependencies</p>
 
     <pre>
     <code>npm install</code>
-    </pre>
+</pre>
 
     <p>Run the development build</p>
 
     <pre>
     <code>npm run start</code>
-    </pre>
+</pre>
 
     <p>The instance will be available on <code>localhost:3030</code></p>
 
@@ -98,10 +168,12 @@
 
     <h3><code>/username?userid={userid}</code></h3>
 
-    <p>This route takes in a required query parameter <code>userid</code> that is used to seed a random number
+    <p>This route takes in a required query parameter <code class="inline">userid</code> that is used to seed a random
+        number
         generator. This way, every user gets a unique output, and it will always be the same output for the same user.
         To make the username interesting, it is formatted as a random sentence with five words of the form
-        <code>adjective-noun-verb-adjective-noun</code>. Using a list of 64 adjectives, nouns, and verbs each, this
+        <code class="inline">adjective-noun-verb-adjective-noun</code>. Using a list of 64 adjectives, nouns, and verbs
+        each, this
         leads to more than 1 billion usernames!
     </p>
 
@@ -109,10 +181,12 @@
 
     <h3><code>/avatar?userid={userid}&amp;w={width}</code></h3>
 
-    <p>This route takes in a required query parameter <code>userid</code> that is used to seed a random number
-        generator. It also takes an optional query parameter <code>w</code> that is used to define the width and height
+    <p>This route takes in a required query parameter <code class="inline">userid</code> that is used to seed a random
+        number
+        generator. It also takes an optional query parameter <code class="inline">w</code> that is used to define the
+        width and height
         of the output image. The output image is a toucan made from 9 uniquely generated colors, 6 for the beak and 1
-        each for the body, background, and branch colors. This creates over $1 \times 10^{65}$ possible avatars! (It's
+        each for the body, background, and branch colors. This creates over 1 * 10<sup>65</sup> possible avatars! (It's
         actually a bit less because the background color has fewer possibilities, but at this order of magnitude, it
         doesn't really make a difference) Some example avatars generated using Toucanny are in the header image of this
         README.</p>
@@ -124,6 +198,19 @@
     <p>Toucanny is deployed using <a href="https://www.serverless.com/">Serverless</a> on <a
             href="https://aws.amazon.com/">AWS</a> and is publicly available <a
             href="https://w4lnqfdtdj.execute-api.us-east-1.amazonaws.com/dev">here</a>!</p>
+
+    <p>Here's a little demo of Toucanny in action!</p>
+
+    <div id="demo">
+        <div>
+            <input type="text" id="api-input" placeholder="Enter User ID">
+            <button id="api-button" onclick="callToucannyAPI()">Generate</button>
+        </div>
+        <h3>Username</h3>
+        <span id="output-username">friendly-eyes-paste-difficult-winds</span>
+        <h3>Avatar</h3>
+        <img id="output-image" src="https://api.toucanny.net/avatar?userid=Enter User ID&w=300" alt="Generated Avatar">
+    </div>
 
     <h2>⛏️ Built Using <a name="built_using"></a></h2>
 
@@ -140,6 +227,33 @@
         <li><a href="https://dribbble.com/shots/3706929-Toucan">Toucan reference image</a></li>
         <li>Inspired by <a href="https://www.peardeck.com/">Peardeck's</a> word-based code generator</li>
     </ul>
+
+    <hr>
+
+    <p>
+        © Jeshwin Prince 2023.
+        <a href="https://www.github.com/Jeshwin">GitHub</a>
+        <a href="https://www.linkedin.com/in/jeshwinprince/">LinkedIn</a>
+        <a href="https://www.youtube.com/@math-a-magic9820">YouTube</a>
+    </p>
+
+    <script>
+        async function callToucannyAPI() {
+            const userId = document.getElementById('api-input').value;
+            const apiUrl = `https://api.toucanny.net/username?userid=${userId}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                // Display the output
+                document.getElementById('output-username').innerText = data.username;
+                document.getElementById('output-image').src = `https://api.toucanny.net/avatar?userid=${userId}&w=300`;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    </script>
 </body>
 
 </html>
