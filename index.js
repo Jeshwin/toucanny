@@ -1,8 +1,11 @@
 const serverless = require("serverless-http")
 const express = require("express")
 const path = require("path")
+const cors = require("cors")
 
 const app = express()
+
+app.use(cors())
 
 const { generateUsername, generateAvatar } = require("./utils")
 
@@ -44,9 +47,9 @@ app.get("/avatar", (req, res) => {
     res.send(avatarData)
 })
 
-app.listen(3030, () => {
-    console.log("listening on port 3030")
-})
-// module.exports.handler = serverless(app, {
-//     binary: ["image/*"],
+// app.listen(3030, () => {
+//     console.log("listening on port 3030")
 // })
+module.exports.handler = serverless(app, {
+    binary: ["image/*"],
+})
